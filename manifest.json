@@ -1,0 +1,23 @@
+{
+    "name": "Meta Answers",
+    "description": "Build an Extension!",
+    "version": "0.1",
+    "manifest_version": 3,
+    "background": {
+        "service-worker": ["./background.js"]
+      },
+    "permissions": ["storage", "activeTab", "scripting"],
+    "content_scripts": [
+        {
+            "matches": ["*://*.mymeta.co.il/*"],
+            "js": ["./background.js"],
+            "run_at": "document_end"
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+    // "content_scripts": [{
+    //     "matches": ["*://https://www.mymeta.co.il//*"]   
+    // }]
+  }
