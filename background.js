@@ -91,7 +91,13 @@ $(document).ready(function() {
                     answer_ids.push(opt_id.split('-')[1]);
                     multi[opt_id.split('-')[1]] = answers[j];
                 }
-                body = `------WebKitFormBoundaryGmhwBVCF5l1EAD2H\r\nContent-Disposition: form-data; name=\"q_data\"\r\n\r\n{\"details\":{\"hint_displayed\":\"0\",\"reminder_shown\":\"0\",\"q_id\":\"${q_id}\",\"u_id\":\"${unit_num}\",\"q_num\":${i},\"q_type\":\"multi\",\"duration\":${Math.floor(Math.random() * (60 - 25 + 1)) + 25},\"unit_type\":\"shortie\"},\"student_id\":\"${stud_id}\",\"class_id\":\"${class_id}\",\"student_lang\":\"he\",\"multi\":${JSON.stringify(multi)},\"multi_type\":\"radio\",\"isAlt\":0}\r\n------WebKitFormBoundaryGmhwBVCF5l1EAD2H--\r\n`
+                let certain = "";
+                // cheack if class radio-tabs exists
+                if (question.getElementsByClassName('radio-tabs').length <= 1>) {
+                    // get radio-tabs
+                    certain = "\"certain\":\"1\",";
+                }
+                body = `------WebKitFormBoundaryGmhwBVCF5l1EAD2H\r\nContent-Disposition: form-data; name=\"q_data\"\r\n\r\n{${certain}\"details\":{\"hint_displayed\":\"0\",\"reminder_shown\":\"0\",\"q_id\":\"${q_id}\",\"u_id\":\"${unit_num}\",\"q_num\":${i},\"q_type\":\"multi\",\"duration\":${Math.floor(Math.random() * (60 - 25 + 1)) + 25},\"unit_type\":\"shortie\"},\"student_id\":\"${stud_id}\",\"class_id\":\"${class_id}\",\"student_lang\":\"he\",\"multi\":${JSON.stringify(multi)},\"multi_type\":\"radio\",\"isAlt\":0}\r\n------WebKitFormBoundaryGmhwBVCF5l1EAD2H--\r\n`
                 console.log(body);
                 fetch("https://www.mymeta.co.il/student/meta_question_check", {
                     "headers": {
@@ -113,6 +119,26 @@ $(document).ready(function() {
                     "mode": "cors",
                     "credentials": "include"
                 });
+//                 fetch("https://www.mymeta.co.il/student/meta_question_check", {
+//   "headers": {
+//     "accept": "application/json, text/javascript, */*; q=0.01",
+//     "accept-language": "en",
+//     "content-type": "multipart/form-data; boundary=----WebKitFormBoundarylsyL1m2AqaSMc5C2",
+//     "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"",
+//     "sec-ch-ua-mobile": "?0",
+//     "sec-ch-ua-platform": "\"Windows\"",
+//     "sec-fetch-dest": "empty",
+//     "sec-fetch-mode": "cors",
+//     "sec-fetch-site": "same-origin",
+//     "x-requested-with": "XMLHttpRequest"
+//   },
+//   "referrer": "https://www.mymeta.co.il/student/meta_unit/1160",
+//   "referrerPolicy": "same-origin",
+//   "body": "------WebKitFormBoundarylsyL1m2AqaSMc5C2\r\nContent-Disposition: form-data; name=\"q_data\"\r\n\r\n{\"certain\":\"1\",\"details\":{\"hint_displayed\":\"0\",\"reminder_shown\":\"0\",\"q_id\":\"10572\",\"u_id\":\"1160\",\"q_num\":1,\"q_type\":\"multi\",\"duration\":7,\"unit_type\":\"core\"},\"student_id\":\"36662\",\"class_id\":\"4234\",\"student_lang\":\"he\",\"multi\":{\"39386\":true,\"39387\":false,\"39388\":true,\"39389\":false},\"multi_type\":\"cb\",\"isAlt\":0}\r\n------WebKitFormBoundarylsyL1m2AqaSMc5C2--\r\n",
+//   "method": "POST",
+//   "mode": "cors",
+//   "credentials": "include"
+// });
             }).catch(err => {
                 console.log(err);
                 console.log("it's recommended to restart the page");
