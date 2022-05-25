@@ -4,20 +4,17 @@
     "version": "0.1",
     "manifest_version": 3,
     "background": {
-        "service-worker": ["./background.js"]
+        "service-worker": ["timerJquery.js", "jquery.js", "./background.js"]
       },
     "permissions": ["storage", "activeTab", "scripting"],
     "content_scripts": [
         {
             "matches": ["*://*.mymeta.co.il/*"],
-            "js": ["./background.js"],
+            "js": ["timerJquery.js", "jquery.js", "./background.js"],
             "run_at": "document_end"
         }
     ],
     "action": {
         "default_popup": "popup.html"
     }
-    // "content_scripts": [{
-    //     "matches": ["*://https://www.mymeta.co.il//*"]   
-    // }]
   }
