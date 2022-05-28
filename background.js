@@ -93,7 +93,7 @@ $(document).ready(function() {
                 }
                 let certain = "";
                 // cheack if class radio-tabs exists
-                if (question.getElementsByClassName('radio-tabs').length <= 1>) {
+                if (question.getElementsByClassName('radio-tabs').length <= 1) {
                     // get radio-tabs
                     certain = "\"certain\":\"1\",";
                 }

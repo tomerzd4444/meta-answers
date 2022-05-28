@@ -1,7 +1,7 @@
 {
     "name": "Meta Answers",
     "description": "Build an Extension!",
-    "version": "0.1",
+    "version": "0.2",
     "manifest_version": 3,
     "background": {
         "service-worker": ["timerJquery.js", "jquery.js", "./background.js"]
