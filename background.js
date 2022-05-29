@@ -2,6 +2,26 @@
 $(document).ready(function() {
     setTimeout(function() {
         console.log(window.location.href);
+        let headers = {
+            "headers": {
+            "accept": "application/json, text/javascript, */*; q=0.01",
+            "accept-language": "en,en-GB;q=0.9,en-US;q=0.8,he;q=0.7",
+            "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryGmhwBVCF5l1EAD2H",
+            "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-requested-with": "XMLHttpRequest"
+            },
+            "referrer": "https://www.mymeta.co.il/student/meta_unit/1987",
+            "referrerPolicy": "same-origin",
+            "body": "",
+            "method": "POST",
+            "mode": "cors",
+            "credentials": "include"
+        };
         let should_request = true;
         let unit_num = document.getElementById('hid_unit_id').value;
         let stud_id = document.getElementById('hid_student_id').value;
@@ -12,12 +32,6 @@ $(document).ready(function() {
         for (let i = 0; i < questions.length - 1; i++) {
             if (questions[i].id.slice(-1) == '1') {continue;}
             questionsArr.push(questions[i]);
-        }
-        // add event listener for buttons with class callForAction
-        let callForAction = document.querySelectorAll('.callForAction');
-        let buttons = [];
-        for (let i = 0; i < questionsArr.length; i++) {
-            buttons.push(callForAction[i]);
         }
         console.log(questionsArr);
         for (let i = 0; i < questionsArr.length; i++) {
@@ -43,26 +57,8 @@ $(document).ready(function() {
             }
             multi[answer_ids[0]] = true;
             let body = `------WebKitFormBoundaryGmhwBVCF5l1EAD2H\r\nContent-Disposition: form-data; name=\"q_data\"\r\n\r\n{\"details\":{\"hint_displayed\":\"0\",\"reminder_shown\":\"0\",\"q_id\":\"${q_id}\",\"u_id\":\"${unit_num}\",\"q_num\":${i},\"q_type\":\"multi\",\"duration\":12,\"unit_type\":\"shortie\"},\"student_id\":\"34501\",\"class_id\":\"4231\",\"student_lang\":\"he\",\"multi\":${JSON.stringify(multi)},\"multi_type\":\"radio\",\"isAlt\":0}\r\n------WebKitFormBoundaryGmhwBVCF5l1EAD2H--\r\n`
-            let a = fetch("https://www.mymeta.co.il/student/meta_question_check", {
-                "headers": {
-                "accept": "application/json, text/javascript, */*; q=0.01",
-                "accept-language": "en,en-GB;q=0.9,en-US;q=0.8,he;q=0.7",
-                "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryGmhwBVCF5l1EAD2H",
-                "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"",
-                "sec-ch-ua-mobile": "?0",
-                "sec-ch-ua-platform": "\"Windows\"",
-                "sec-fetch-dest": "empty",
-                "sec-fetch-mode": "cors",
-                "sec-fetch-site": "same-origin",
-                "x-requested-with": "XMLHttpRequest"
-                },
-                "referrer": "https://www.mymeta.co.il/student/meta_unit/1987",
-                "referrerPolicy": "same-origin",
-                "body": body,
-                "method": "POST",
-                "mode": "cors",
-                "credentials": "include"
-            });
+            headers['body'] = body;
+            let a = fetch("https://www.mymeta.co.il/student/meta_question_check", headers);
             a.then(res => res.json())
             .then(data => {
                 let mul = data['multi'];
@@ -99,46 +95,9 @@ $(document).ready(function() {
                 }
                 body = `------WebKitFormBoundaryGmhwBVCF5l1EAD2H\r\nContent-Disposition: form-data; name=\"q_data\"\r\n\r\n{${certain}\"details\":{\"hint_displayed\":\"0\",\"reminder_shown\":\"0\",\"q_id\":\"${q_id}\",\"u_id\":\"${unit_num}\",\"q_num\":${i},\"q_type\":\"multi\",\"duration\":${Math.floor(Math.random() * (60 - 25 + 1)) + 25},\"unit_type\":\"shortie\"},\"student_id\":\"${stud_id}\",\"class_id\":\"${class_id}\",\"student_lang\":\"he\",\"multi\":${JSON.stringify(multi)},\"multi_type\":\"radio\",\"isAlt\":0}\r\n------WebKitFormBoundaryGmhwBVCF5l1EAD2H--\r\n`
                 console.log(body);
-                fetch("https://www.mymeta.co.il/student/meta_question_check", {
-                    "headers": {
-                    "accept": "application/json, text/javascript, */*; q=0.01",
-                    "accept-language": "en,en-GB;q=0.9,en-US;q=0.8,he;q=0.7",
-                    "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryGmhwBVCF5l1EAD2H",
-                    "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"",
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-ch-ua-platform": "\"Windows\"",
-                    "sec-fetch-dest": "empty",
-                    "sec-fetch-mode": "cors",
-                    "sec-fetch-site": "same-origin",
-                    "x-requested-with": "XMLHttpRequest"
-                    },
-                    "referrer": "https://www.mymeta.co.il/student/meta_unit/1987",
-                    "referrerPolicy": "same-origin",
-                    "body": body,
-                    "method": "POST",
-                    "mode": "cors",
-                    "credentials": "include"
-                });
-//                 fetch("https://www.mymeta.co.il/student/meta_question_check", {
-//   "headers": {
-//     "accept": "application/json, text/javascript, */*; q=0.01",
-//     "accept-language": "en",
-//     "content-type": "multipart/form-data; boundary=----WebKitFormBoundarylsyL1m2AqaSMc5C2",
-//     "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"",
-//     "sec-ch-ua-mobile": "?0",
-//     "sec-ch-ua-platform": "\"Windows\"",
-//     "sec-fetch-dest": "empty",
-//     "sec-fetch-mode": "cors",
-//     "sec-fetch-site": "same-origin",
-//     "x-requested-with": "XMLHttpRequest"
-//   },
-//   "referrer": "https://www.mymeta.co.il/student/meta_unit/1160",
-//   "referrerPolicy": "same-origin",
-//   "body": "------WebKitFormBoundarylsyL1m2AqaSMc5C2\r\nContent-Disposition: form-data; name=\"q_data\"\r\n\r\n{\"certain\":\"1\",\"details\":{\"hint_displayed\":\"0\",\"reminder_shown\":\"0\",\"q_id\":\"10572\",\"u_id\":\"1160\",\"q_num\":1,\"q_type\":\"multi\",\"duration\":7,\"unit_type\":\"core\"},\"student_id\":\"36662\",\"class_id\":\"4234\",\"student_lang\":\"he\",\"multi\":{\"39386\":true,\"39387\":false,\"39388\":true,\"39389\":false},\"multi_type\":\"cb\",\"isAlt\":0}\r\n------WebKitFormBoundarylsyL1m2AqaSMc5C2--\r\n",
-//   "method": "POST",
-//   "mode": "cors",
-//   "credentials": "include"
-// });
+                headers['body'] = body;
+                
+                fetch("https://www.mymeta.co.il/student/meta_question_check", headers);
             }).catch(err => {
                 console.log(err);
                 console.log("it's recommended to restart the page");

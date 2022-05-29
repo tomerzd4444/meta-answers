@@ -1,4 +1,4 @@
-# Meta Answers
+# Meta Answers (It doesn't work anymore)
 This is a simple chrome extension that was created because I was too tired to do my Physics homework
 ## How To Use
 First, download the repository.
